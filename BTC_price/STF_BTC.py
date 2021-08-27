@@ -282,7 +282,7 @@ def plotSTF():
     mpl.rcParams['ytick.left'] = False
     mpl.rcParams['ytick.labelright'] = True
     mpl.rcParams['ytick.labelleft'] = False
-    mpl.rcParams['font.size'] = 15
+    mpl.rcParams['font.size'] = 13
 
         
     mplstyle.use(['dark_background'])
