@@ -482,10 +482,10 @@ def plotlySTF():
     kraken_fig.add_trace(go.Scatter(x=tdArr[sp2:ep2],y=ratArr[sp2:ep2],name = 'STF',mode='lines',line=dict(color='cyan', width=1)), row=1,col=1)
 
     
-    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=sig_p,name='+2 STD Dev$',mode='lines',line=dict(color='white', width=1, dash='dot')), row=1,col=1)
+    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=sig_p,name='+2 STD Dev',mode='lines',line=dict(color='white', width=1, dash='dot')), row=1,col=1)
 
                          
-    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=sig_n,name='-2 STD Dev$',mode='lines',line=dict(color='white', width=1, dash='dot')), row=1,col=1)
+    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=sig_n,name='-2 STD Dev',mode='lines',line=dict(color='white', width=1, dash='dot')), row=1,col=1)
 
                          
     kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=STFit_price,name='refit STF',mode='lines',line=dict(color='white', width=1)), row=1,col=1)
@@ -507,13 +507,13 @@ def plotlySTF():
 
 
         
-    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=STFit+2*sig,name='+2 STD Dev$',mode='lines',line=dict(color='white', width=1, dash='dot')), row=3,col=1)
+    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=STFit+2*sig,name='+2 STD Dev',mode='lines',line=dict(color='white', width=1, dash='dot')), row=3,col=1)
         
-    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=STFit+sig,name='+1 STD Dev$',mode='lines',line=dict(color='white', width=1, dash='dash')), row=3,col=1)
+    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=STFit+sig,name='+1 STD Dev',mode='lines',line=dict(color='white', width=1, dash='dash')), row=3,col=1)
                          
-    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=STFit-sig,name='-1 STD Dev$',mode='lines',line=dict(color='white', width=1, dash='dash')), row=3,col=1)
+    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=STFit-sig,name='-1 STD Dev',mode='lines',line=dict(color='white', width=1, dash='dash')), row=3,col=1)
 
-    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=STFit-2*sig,name='-2 STD Dev$',mode='lines',line=dict(color='white', width=1, dash='dot')), row=3,col=1)
+    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=STFit-2*sig,name='-2 STD Dev',mode='lines',line=dict(color='white', width=1, dash='dot')), row=3,col=1)
 
     
 
