@@ -4,6 +4,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
 
+
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
+import plotly.io as pio
+
 import matplotlib.ticker as ticker
 from matplotlib.figure import Figure
 import matplotlib.gridspec as gridspec
@@ -370,12 +375,167 @@ def plotSTF():
     #ax_vol.fmt_xdata = mdates.DateFormatter('%Y-%m-%d')
 
     #plt.draw()
+
     
     plt.show()
 
     
 
 
+
+
+def plotlySTF():
+
+    timeArrEE, STFit,sig = calcSTF()
+
+
+
+    
+    timeArr, ratArr, tHalf = getSTF()
+
+    timeArrE, priceArr = getPriceAll()
+
+    lenArr = np.shape(timeArr)[0]
+
+    lenArrE = np.shape(timeArrE)[0]
+
+    lenArrEE = np.shape(timeArrEE)[0]
+
+    #<><><><><><><><><><><><><><><><><><><><><><><> 
+    diff = np.empty((lenArrE))
+
+    for i in range(np.shape(timeArr)[0]-1):
+        if (timeArrE[0] >= timeArr[i] and timeArrE[0] < timeArr[i+1]):
+            sp1 = i
+
+
+    ep1 = sp1+lenArrE
+            
+    diff[:] = np.log(priceArr[:]) - np.log(ratArr[sp1:ep1])
+
+    #<><><><><><><><><><><><><><><><><><><><><><><> 
+
+    STFit_price = np.empty((lenArrEE))
+
+    sig_p = np.empty((lenArrEE))
+
+    sig_n = np.empty((lenArrEE))
+
+    ep1 = sp1+lenArrEE
+            
+    STFit_price[:] = np.exp(STFit[:] + np.log(ratArr[sp1:ep1]))
+
+    sig_p[:] = np.exp(2*sig[:]+STFit[:] + np.log(ratArr[sp1:ep1]))
+
+
+    sig_n[:] = np.exp(STFit[:]-2*sig[:] + np.log(ratArr[sp1:ep1]))
+
+
+    
+    #<><><><><><><><><><><><><><><><><><><><><><><> 
+
+    
+    ep1 = sp1+lenArrE
+            
+
+    sp2 = 365
+    ep2= sp2+lenArrE+365
+    
+        
+    tdArr=np.empty((lenArr),dtype='datetime64[s]')
+    tdArrE=np.empty((lenArrE),dtype='datetime64[s]')
+    tdArrEE=np.empty((lenArrEE),dtype='datetime64[s]')
+    for i in range(lenArr):
+        tdArr[i] = np.datetime64(datetime.fromtimestamp(timeArr[i]))
+
+    for i in range(lenArrE):
+        tdArrE[i] = np.datetime64(datetime.fromtimestamp(timeArrE[i]))
+
+    for i in range(lenArrEE):
+        tdArrEE[i] = np.datetime64(datetime.fromtimestamp(timeArrEE[i]))
+
+    
+
+    dateDict = {
+            '1m' : '%b %d\n%H UTC',
+            '3m' : '%b %d\n%H UTC',
+            '1w' : '%b %d',
+            '1y' : '%b %d \'%y',
+            '2y' : '%b %d \'%y'
+            }
+
+
+    
+    pio.templates.default = "plotly_dark"
+    
+
+    
+    kraken_fig = make_subplots(rows=3, cols=1, specs=[[{"rowspan": 2}], [None],[{}]],shared_xaxes=True, vertical_spacing=0.1)
+
+    
+
+
+    
+    kraken_fig.add_trace(go.Scatter(x=tdArrE,y=priceArr,mode='markers',name='Price',marker_color = tHalf[sp1:ep1], marker=dict(colorbar=dict(thickness=15),colorscale="GnBu"),marker_size=3), row=1,col=1)
+
+
+    kraken_fig.add_trace(go.Scatter(x=tdArr[sp2:ep2],y=ratArr[sp2:ep2],name = 'STF',mode='lines',line=dict(color='cyan', width=1)), row=1,col=1)
+
+    
+    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=sig_p,name='+2 STD Dev$',mode='lines',line=dict(color='white', width=1, dash='dot')), row=1,col=1)
+
+                         
+    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=sig_n,name='-2 STD Dev$',mode='lines',line=dict(color='white', width=1, dash='dot')), row=1,col=1)
+
+                         
+    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=STFit_price,name='refit STF',mode='lines',line=dict(color='white', width=1)), row=1,col=1)
+
+    
+    
+    kraken_fig.update_yaxes(type="log",row=1,col=1)
+    
+
+
+
+
+
+
+    
+
+    
+    kraken_fig.add_trace(go.Scatter(x=tdArrE,y=diff,mode='markers',name='Price',marker_color = tHalf[sp1:ep1], marker=dict(colorscale="GnBu"),marker_size=3), row=3,col=1)
+
+
+        
+    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=STFit+2*sig,name='+2 STD Dev$',mode='lines',line=dict(color='white', width=1, dash='dot')), row=3,col=1)
+        
+    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=STFit+sig,name='+1 STD Dev$',mode='lines',line=dict(color='white', width=1, dash='dash')), row=3,col=1)
+                         
+    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=STFit-sig,name='-1 STD Dev$',mode='lines',line=dict(color='white', width=1, dash='dash')), row=3,col=1)
+
+    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=STFit-2*sig,name='-2 STD Dev$',mode='lines',line=dict(color='white', width=1, dash='dot')), row=3,col=1)
+
+    
+
+    kraken_fig.add_trace(go.Scatter(x=tdArrEE,y=STFit,name='refit STF',mode='lines',line=dict(color='white', width=1)), row=3,col=1)
+
+
+
+
+    
+    kraken_fig.update_yaxes(row=3,col=1)
+    
+    #kraken_fig.add_hline(y=0,fillcolor='cyan',row=3,col=1)
+
+
+    
+    
+    kraken_fig.update_layout(showlegend=False,font=dict(size=15))
+    
+    kraken_fig.show()
+                                   
+
+    
 
     
 def preRSI(numDays):
