@@ -12,7 +12,7 @@ import matplotlib.style as mplstyle
 import matplotlib.dates as mdates
 import matplotlib.cm as cm
 
-from API.API_exchange import getPriceAll
+from API_exchange import getPriceAll
 
 
 
