@@ -288,7 +288,7 @@ def plotSTF():
     mplstyle.use(['dark_background'])
 
 
-    kraken_fig = plt.figure(figsize=(13,8))
+    kraken_fig = plt.figure(figsize=(10,7))
     spec = gridspec.GridSpec(ncols=1, nrows=3, figure=kraken_fig, left=0.1,right=0.93,top=0.95,bottom=0.1,hspace=0)
 
 
