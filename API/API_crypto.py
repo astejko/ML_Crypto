@@ -1703,10 +1703,10 @@ def plotSTD(signal,ma=1,sa=365,co=0):
         spikemode="across",)
 
     
-    #kraken_fig.update_layout(showlegend=False,font=dict(size=15),autosize=False,width=1500,height=800, margin=dict(l=50,r=50,b=50,t=50,pad=4),xaxis=xaxis)
+    kraken_fig.update_layout(showlegend=False,font=dict(size=15),autosize=False,width=1500,height=800, margin=dict(l=50,r=25,b=50,t=50,pad=4),xaxis=xaxis,xaxis2=xaxis2)
 
     
-    kraken_fig.update_layout(showlegend=False,font=dict(size=15),autosize=True, margin=dict(l=50,r=25,b=50,t=50,pad=4),xaxis=xaxis,xaxis2=xaxis2)
+    #kraken_fig.update_layout(showlegend=False,font=dict(size=15),autosize=True, margin=dict(l=50,r=25,b=50,t=50,pad=4),xaxis=xaxis,xaxis2=xaxis2)
 
     #kraken_fig.write_image("./Figures/fig1.png")
     
@@ -2016,10 +2016,10 @@ def plotSTDp(signal,ma=1,sa=365,co=0):
         spikemode="across",)
 
     
-    #kraken_fig.update_layout(showlegend=False,font=dict(size=15),autosize=False,width=1500,height=800, margin=dict(l=50,r=50,b=50,t=50,pad=4),xaxis=xaxis)
+    kraken_fig.update_layout(showlegend=False,font=dict(size=15),autosize=False,width=1500,height=800, margin=dict(l=50,r=25,b=50,t=50,pad=4),xaxis=xaxis,xaxis2=xaxis2)
 
     
-    kraken_fig.update_layout(showlegend=False,font=dict(size=15),autosize=True, margin=dict(l=50,r=25,b=50,t=50,pad=4),xaxis=xaxis,xaxis2=xaxis2)
+    #kraken_fig.update_layout(showlegend=False,font=dict(size=15),autosize=True, margin=dict(l=50,r=25,b=50,t=50,pad=4),xaxis=xaxis,xaxis2=xaxis2)
     
     kraken_fig.show()
                                    
