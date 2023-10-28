@@ -533,6 +533,8 @@ def plotlySTF():
     kraken_fig.update_layout(showlegend=False,font=dict(size=15),autosize=False,width=1000,height=500, margin=dict(l=50,r=50,b=50,t=50,pad=4))
     
     kraken_fig.show()
+    
+    return kraken_fig
                                    
 
     
